@@ -1,12 +1,12 @@
 import pandas as pd
 
-keyStats_df = pd.read_parquet(r"DataSet Project\merge-data-by-clubs\merge-data-by-clubs.parquet")
-attacking_df = pd.read_parquet(r"DataSet Project\ucl-matches-dataset-02\parquet\attacking.parquet")
-defending_df = pd.read_parquet(r"DataSet Project\ucl-matches-dataset-02\parquet\defending.parquet")
-attempts_df = pd.read_parquet(r"DataSet Project\ucl-matches-dataset-02\parquet\attempts.parquet")
-goalkepping_df = pd.read_parquet(r"DataSet Project\ucl-matches-dataset-02\parquet\goalkeeping.parquet")
-goals_df = pd.read_parquet(r"DataSet Project\ucl-matches-dataset-02\parquet\goals.parquet")
-distribution_df = pd.read_parquet(r"DataSet Project\ucl-matches-dataset-02\parquet\distributon.parquet")
+keyStats_df = pd.read_parquet(r"DataSet Project/merge_by_clubs/merge_by_clubs.parquet")
+attacking_df = pd.read_parquet(r"DataSet Project/Ucl_matches/attacking.parquet")
+defending_df = pd.read_parquet(r"DataSet Project/Ucl_matches/defending.parquet")
+attempts_df = pd.read_parquet(r"DataSet Project/Ucl_matches/attempts.parquet")
+goalkepping_df = pd.read_parquet(r"DataSet Project/Ucl_matches/goalkeeping.parquet")
+goals_df = pd.read_parquet(r"DataSet Project/Ucl_matches/goals.parquet")
+distribution_df = pd.read_parquet(r"DataSet Project/Ucl_matches/distributon.parquet")
 
 keyStats_df['club'] = keyStats_df['club'].str.lower()
 attacking_df['club'] = attacking_df['club'].str.lower()
