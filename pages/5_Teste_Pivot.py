@@ -33,16 +33,13 @@ percentual_ganhas_com_gols = (partidas_ganhas_com_gols / total_partidas) * 100
 st.write("DataFrame Resultante do Merge:")
 st.dataframe(df_merged)
 
-# Selecionar a coluna para o violinplot
-coluna = 'goals'  # Substitua por qualquer coluna de interesse
+coluna = 'goals' 
 
-# Gerar o violinplot
 plt.figure(figsize=(10, 6))
 sns.violinplot(data=df_balanceado, x=coluna)
 plt.title(f'Violinplot da Coluna {coluna}')
 plt.xlabel(coluna)
 
-# Exibir o violinplot no Streamlit
 st.pyplot(plt)
 
 
