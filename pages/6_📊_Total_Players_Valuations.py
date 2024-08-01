@@ -4,17 +4,16 @@ import streamlit as st
 
 @st.cache_data
 def load_data():
-    # Carregar todos os dados necessários de uma vez
     players_valuations_df = pd.read_parquet(
-        "DataSet Project/football-transfermarkt-dataset-01/parquet/player_valuations.parquet",
+        "DataSet Project/football-transfermarkt-dataset-01/dados_nomalizados/player_valuations_nor.parquet",
         columns=['player_id', 'current_club_id', 'market_value_in_eur']
     )
     games_df = pd.read_parquet(
-        "DataSet Project/football-transfermarkt-dataset-01/parquet/games.parquet",
+        "DataSet Project/football-transfermarkt-dataset-01/dados_nomalizados/games.parquet_nor.parquet",
         columns=['home_club_id', 'competition_id', 'season', 'home_club_name']
     )
     players_df = pd.read_parquet(
-        "DataSet Project/football-transfermarkt-dataset-01/parquet/players.parquet",
+        "DataSet Project/football-transfermarkt-dataset-01/dados_nomalizados/players_nor.parquet",
         columns=['player_id', 'first_name', 'last_name']
     )
     return players_valuations_df, games_df, players_df
@@ -59,22 +58,23 @@ def plot_comparison(df, selected_teams, selected_players):
     fig.update_traces(texttemplate='%{y:.2s}', textposition='outside')
     st.plotly_chart(fig)
 
-
 players_valuations_df, games_df, players_df = load_data()
 resultado = process_data(players_valuations_df, games_df, players_df)
 
 season = st.selectbox('Selecione a Temporada:', resultado['season'].unique())
 
-all_teams = resultado['home_club_name'].unique()
+# Filtrar os dados pela temporada selecionada
+resultado_filtrado = resultado[resultado['season'] == season]
+
+all_teams = resultado_filtrado['home_club_name'].unique()
 selected_teams = st.multiselect('Selecione Times para Comparar:', options=all_teams)
 
 if len(selected_teams) > 0:
-    players_in_selection = resultado[resultado['home_club_name'].isin(selected_teams)]['last_name'].unique()
+    players_in_selection = resultado_filtrado[resultado_filtrado['home_club_name'].isin(selected_teams)]['last_name'].unique()
     selected_players = st.multiselect('Selecione Jogadores:', options=players_in_selection)
 
     if len(selected_players) > 0:
-        filtered_result = resultado[resultado['season'] == season]
-        plot_comparison(filtered_result, selected_teams, selected_players)
+        plot_comparison(resultado_filtrado, selected_teams, selected_players)
     else:
         st.warning("Selecione pelo menos um jogador.")
 else:
