@@ -222,7 +222,7 @@ def formacoes_taticas(data, qtd_clusters):
         st.error("A coluna 'club_formation' não existe no DataFrame.")
         return
 
-    categorize_checkbox = st.checkbox("Categorizar Formaçōes", value=False)
+    categorize_checkbox = st.checkbox("Categorizar Formaçōes", value=True)
 
     if categorize_checkbox:
         formation_counts = categorize_formations(data).groupby(['cluster', 'club_formation']).size().reset_index(name='count')
